@@ -35,8 +35,12 @@ function zen_get_categories_products_list(int $categoryId): array
 }
 
 $db = new TestDatabase();
-require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.2/catalog/includes/functions/extra_functions/products_restricted_zones.php';
-require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.2/catalog/includes/classes/observers/class.products_restricted_zones.php';
+require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.3/catalog/includes/functions/extra_functions/products_restricted_zones.php';
+require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.3/catalog/includes/classes/observers/class.products_restricted_zones.php';
+
+if (!defined('TEXT_PRODUCTS_RESTRICTED_ZONE') || !defined('TEXT_PRODUCTS_RESTRICTED_REPLACEMENT')) {
+    throw new RuntimeException('The storefront restriction messages must always be defined.');
+}
 
 if (!product_restricted_zone_only(145, 10, 223)) {
     throw new RuntimeException('A product with several only-ship rules must pass when any configured zone matches.');

@@ -1,5 +1,11 @@
 # Change history
 
+## v2.0.3 - 2026-09-03
+
+- Corrected the storefront extra-definition filename to the Zen Cart 2.x `lang.*.php` format so restriction and replacement messages load.
+- Added defensive storefront message fallbacks in the observer so a missing or delayed language load cannot cause a fatal cart error.
+- Added package checks for both storefront message constants and the required language filename.
+
 ## v2.0.2 - 2026-09-03
 
 - Added logged-out shopping-cart shipping-estimator support by reading the submitted or saved estimator country and state before Zen Cart builds the estimator order object.

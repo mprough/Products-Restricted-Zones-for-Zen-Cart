@@ -1,5 +1,11 @@
 # Change history
 
+## v2.0.7 - 2026-09-03
+
+- Enforces restrictions after Zen Cart constructs the actual delivery address on shipping, payment, and confirmation pages.
+- Adds a complete regression test proving that `C15:1` allows GA and redirects an OH checkout to the shopping cart.
+- Keeps the direct request guard and final order processing guard as independent enforcement layers.
+
 ## v2.0.6 - 2026-09-03
 
 - Adds a direct checkout request guard that does not depend solely on page notifications.

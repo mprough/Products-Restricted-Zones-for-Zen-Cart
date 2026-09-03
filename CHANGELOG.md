@@ -1,5 +1,12 @@
 # Change history
 
+## v2.0.2 - 2026-09-03
+
+- Added logged-out shopping-cart shipping-estimator support by reading the submitted or saved estimator country and state before Zen Cart builds the estimator order object.
+- Retained checkout delivery-address and logged-in customer-address fallbacks.
+- Replaced both zone-rule setting labels and descriptions with plain-language instructions and complete examples.
+- Added automated coverage for multiple allowed zones, empty prohibited-zone rules, submitted estimator addresses, saved estimator addresses, and checkout delivery addresses.
+
 ## v2.0.1 - 2026-09-03
 
 - Added an admin-runtime registration safeguard that repairs a missing **Configuration > Products Restricted Zones** menu entry after installation or upgrade.

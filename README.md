@@ -2,7 +2,7 @@
 
 Products Restricted Zones prevents selected products or entire categories from shipping to specified Zen Cart zone definitions. It can also limit a product to approved zones and optionally replace a restricted item with an active product whose model uses a configured suffix.
 
-Version 2.0.1 is a complete modernization of the legacy v1.1.1 release. It is encapsulated for Zen Cart Plugin Manager, makes no core-file edits, corrects the original multi-rule evaluation, and recognizes both state-specific and country-wide zone-definition entries.
+Version 2.0.2 is a complete modernization of the legacy v1.1.1 release. It is encapsulated for Zen Cart Plugin Manager, makes no core-file edits, corrects the original multi-rule evaluation, and recognizes both state-specific and country-wide zone-definition entries.
 
 ## Compatibility
 
@@ -27,6 +27,7 @@ Version 2.0.1 is a complete modernization of the legacy v1.1.1 release. It is en
 - Only active, different products qualify as automatic replacements.
 - Display every restricted product found in the cart instead of stopping after the first one.
 - Return checkout attempts to the cart until restrictions and automatic replacements have been reviewed.
+- Evaluate destinations submitted through the logged-out shopping-cart shipping estimator.
 - Preserve existing v1.1.1 configuration values during migration.
 - Repair an absent Configuration menu registration automatically on the next admin page load.
 - Clean uninstall removes only this plugin's configuration and admin-page registration.
@@ -38,24 +39,24 @@ Version 2.0.1 is a complete modernization of the legacy v1.1.1 release. It is en
 3. Upload the complete `files/zc_plugins/ProductsRestrictedZones` directory into the store's `zc_plugins` directory.
 4. Sign in to Zen Cart Admin.
 5. Open **Modules > Plugin Manager**.
-6. Find **Products Restricted Zones v2.0.1** and select **Install**.
+6. Find **Products Restricted Zones v2.0.2** and select **Install**.
 7. Open **Configuration > Products Restricted Zones**.
 8. Add and test the required rules before enabling the plugin.
 
-Do not rename the `ProductsRestrictedZones` or `v2.0.1` directories.
+Do not rename the `ProductsRestrictedZones` or `v2.0.2` directories.
 
 ## Upgrading from v1.1.1
 
-Version 2.0.1 replaces the former loose admin and storefront files with a Plugin Manager package. The installer locates the legacy configuration group and preserves its enabled setting, rules, replacement setting, and replacement suffix.
+Version 2.0.2 replaces the former loose admin and storefront files with a Plugin Manager package. The installer locates the legacy configuration group and preserves its enabled setting, rules, replacement setting, and replacement suffix.
 
 1. Back up the store files and database.
 2. Record the current settings under **Configuration > Products Restricted Zone**.
-3. Upload `files/zc_plugins/ProductsRestrictedZones` and install v2.0.1 through Plugin Manager.
+3. Upload `files/zc_plugins/ProductsRestrictedZones` and install v2.0.2 through Plugin Manager.
 4. Confirm the retained settings under **Configuration > Products Restricted Zones**.
 5. Test allowed and restricted delivery addresses.
 6. Remove the obsolete loose files listed in [the installation guide](docs/INSTALLATION.md).
 
-Do not run the old `uninstall.sql` before installing v2.0.1; it would delete the settings that the new installer is designed to retain.
+Do not run the old `uninstall.sql` before installing v2.0.2; it would delete the settings that the new installer is designed to retain.
 
 ## Configuration
 
@@ -78,7 +79,7 @@ Separate several rules with commas:
 - Spaces around entries are ignored.
 - Invalid or incomplete entries are ignored.
 
-### Only ship these products to these zones
+### Products limited to specific zones
 
 A product named in this field can ship only when the delivery address belongs to at least one zone listed for that product. Products with no matching rule are unaffected.
 
@@ -88,7 +89,7 @@ To allow product 145 in either zone 1 or zone 2:
 145:1,145:2
 ```
 
-### Do not ship these products to these zones
+### Products prohibited from specific zones
 
 A product named in this field cannot ship when the delivery address belongs to a listed zone. These rules take priority if the same product and address are also permitted by an only-ship rule.
 

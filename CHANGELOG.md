@@ -1,5 +1,11 @@
 # Change history
 
+## v2.0.1 - 2026-09-03
+
+- Added an admin-runtime registration safeguard that repairs a missing **Configuration > Products Restricted Zones** menu entry after installation or upgrade.
+- Added the menu language definition to the installed admin files so the label is available whenever Zen Cart constructs the admin menu.
+- Retained an inline menu-label fallback for supported Zen Cart versions with a different admin bootstrap sequence.
+
 ## v2.0.0 - 2026-09-03
 
 - Converted the loose-file package to an encapsulated Zen Cart Plugin Manager package.

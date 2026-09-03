@@ -2,7 +2,7 @@
 set -euo pipefail
 
 root="$(cd "$(dirname "$0")/.." && pwd)"
-plugin="$root/files/zc_plugins/ProductsRestrictedZones/v2.0.8"
+plugin="$root/files/zc_plugins/ProductsRestrictedZones/v2.0.9"
 
 test -f "$plugin/manifest.php"
 test -f "$plugin/Installer/ScriptedInstaller.php"

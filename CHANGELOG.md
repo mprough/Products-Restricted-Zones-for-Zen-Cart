@@ -1,5 +1,11 @@
 # Change history
 
+## v2.0.9 - 2026-09-03
+
+- Rechecks submitted shopping-cart shipping estimates after Zen Cart has built the estimator delivery address.
+- Restores automatic replacement for estimator destinations when a custom template does not expose the submitted address during the cart-header notification.
+- Adds a regression test for prohibited product 305 in Georgia replacing model `11275` with product 260, model `11275-ALT`.
+
 ## v2.0.8 - 2026-09-03
 
 - Adds native One Page Checkout enforcement with no OPC file changes or extra configuration.

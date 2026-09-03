@@ -2,7 +2,7 @@
 
 Products Restricted Zones prevents selected products or entire categories from shipping to specified Zen Cart zone definitions. It can also limit a product to approved zones and optionally replace a restricted item with an active product whose model uses a configured suffix.
 
-Version 2.0.8 is a complete modernization of the legacy v1.1.1 release. It is encapsulated for Zen Cart Plugin Manager, makes no core-file edits, corrects the original multi-rule evaluation, recognizes both state-specific and country-wide zone-definition entries, and blocks restricted orders in standard Zen Cart checkout and One Page Checkout.
+Version 2.0.9 is a complete modernization of the legacy v1.1.1 release. It is encapsulated for Zen Cart Plugin Manager, makes no core-file edits, corrects the original multi-rule evaluation, recognizes both state-specific and country-wide zone-definition entries, and blocks restricted orders in standard Zen Cart checkout and One Page Checkout.
 
 ## Compatibility
 
@@ -43,24 +43,24 @@ One Page Checkout 2.6.3 is the tested compatible OPC release. Future OPC version
 3. Upload the complete `files/zc_plugins/ProductsRestrictedZones` directory into the store's `zc_plugins` directory.
 4. Sign in to Zen Cart Admin.
 5. Open **Modules > Plugin Manager**.
-6. Find **Products Restricted Zones v2.0.8** and select **Install**.
+6. Find **Products Restricted Zones v2.0.9** and select **Install**.
 7. Open **Configuration > Products Restricted Zones**.
 8. Add and test the required rules before enabling the plugin.
 
-Do not rename the `ProductsRestrictedZones` or `v2.0.8` directories.
+Do not rename the `ProductsRestrictedZones` or `v2.0.9` directories.
 
 ## Upgrading from v1.1.1
 
-Version 2.0.8 replaces the former loose admin and storefront files with a Plugin Manager package. The installer locates the legacy configuration group and preserves its enabled setting, rules, replacement setting, and replacement suffix.
+Version 2.0.9 replaces the former loose admin and storefront files with a Plugin Manager package. The installer locates the legacy configuration group and preserves its enabled setting, rules, replacement setting, and replacement suffix.
 
 1. Back up the store files and database.
 2. Record the current settings under **Configuration > Products Restricted Zone**.
-3. Upload `files/zc_plugins/ProductsRestrictedZones` and install v2.0.8 through Plugin Manager.
+3. Upload `files/zc_plugins/ProductsRestrictedZones` and install v2.0.9 through Plugin Manager.
 4. Confirm the retained settings under **Configuration > Products Restricted Zones**.
 5. Test allowed and restricted delivery addresses.
 6. Remove the obsolete loose files listed in [the installation guide](docs/INSTALLATION.md).
 
-Do not run the old `uninstall.sql` before installing v2.0.8; it would delete the settings that the new installer is designed to retain.
+Do not run the old `uninstall.sql` before installing v2.0.9; it would delete the settings that the new installer is designed to retain.
 
 ## Configuration
 

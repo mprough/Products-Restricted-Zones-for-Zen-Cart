@@ -2,7 +2,7 @@
 
 ## New installation
 
-Upload `files/zc_plugins/ProductsRestrictedZones` to the store's `zc_plugins` directory, then install **Products Restricted Zones v2.0.8** under **Modules > Plugin Manager**. Configure the rules under **Configuration > Products Restricted Zones** and test them before enabling the plugin.
+Upload `files/zc_plugins/ProductsRestrictedZones` to the store's `zc_plugins` directory, then install **Products Restricted Zones v2.0.9** under **Modules > Plugin Manager**. Configure the rules under **Configuration > Products Restricted Zones** and test them before enabling the plugin.
 
 ## One Page Checkout compatibility
 
@@ -10,9 +10,9 @@ One Page Checkout 2.6.3 is tested and compatible. Future OPC versions have not b
 
 ## Migrating from v1.1.1
 
-Install v2.0.8 before removing the legacy files. The new installer reuses the configuration group containing `PRODUCTS_RESTRICTED_ZONE_VERSION`, updates its version, retains the other five configuration values, and refreshes the Configuration menu registration.
+Install v2.0.9 before removing the legacy files. The new installer reuses the configuration group containing `PRODUCTS_RESTRICTED_ZONE_VERSION`, updates its version, retains the other five configuration values, and refreshes the Configuration menu registration.
 
-After testing v2.0.8, remove these obsolete loose files from the store:
+After testing v2.0.9, remove these obsolete loose files from the store:
 
 ```text
 YOUR_ADMIN/includes/auto_loaders/config.products_restricted_zones.php
@@ -29,4 +29,4 @@ includes/languages/english/extra_definitions/products_restricted_zones.php
 
 Replace `YOUR_ADMIN` with the store's actual renamed admin directory. Do not remove similarly named files from `zc_plugins/ProductsRestrictedZones`.
 
-The former `uninstall.sql` is obsolete and is preserved only in [the archived v1.1.1 documentation](archive/readme-v1.1.1.txt). Use Plugin Manager to uninstall v2.0.8.
+The former `uninstall.sql` is obsolete and is preserved only in [the archived v1.1.1 documentation](archive/readme-v1.1.1.txt). Use Plugin Manager to uninstall v2.0.9.

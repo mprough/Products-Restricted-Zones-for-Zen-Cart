@@ -1,5 +1,11 @@
 # Change history
 
+## v2.0.6 - 2026-09-03
+
+- Adds a direct checkout request guard that does not depend solely on page notifications.
+- Uses the customer's default address before Zen Cart initializes the selected shipping address.
+- Retains notification checks as a second enforcement layer through final order processing.
+
 ## v2.0.5 - 2026-09-03
 
 - Enforces product restrictions at shipping, payment, confirmation, and final order processing.

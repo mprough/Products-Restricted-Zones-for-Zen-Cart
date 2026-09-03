@@ -60,8 +60,8 @@ function zen_get_categories_products_list(int $categoryId): array
 }
 
 $db = new TestDatabase();
-require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.5/catalog/includes/functions/extra_functions/products_restricted_zones.php';
-require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.5/catalog/includes/classes/observers/class.products_restricted_zones.php';
+require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.6/catalog/includes/functions/extra_functions/products_restricted_zones.php';
+require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.6/catalog/includes/classes/observers/class.products_restricted_zones.php';
 
 if (!defined('TEXT_PRODUCTS_RESTRICTED_ZONE') || !defined('TEXT_PRODUCTS_RESTRICTED_REPLACEMENT')) {
     throw new RuntimeException('The storefront restriction messages must always be defined.');
@@ -123,6 +123,16 @@ if ($observer->destination('NOTIFY_HEADER_START_CHECKOUT_PAYMENT', $order) !== [
 $_SESSION = ['customer_id' => 12, 'sendto' => 7, 'customer_country_id' => 38, 'customer_zone_id' => 9];
 if ($observer->destination('NOTIFY_HEADER_START_CHECKOUT_SHIPPING', null) !== [44, 223]) {
     throw new RuntimeException('The selected checkout shipping address was not detected.');
+}
+
+$_SESSION = ['customer_id' => 12, 'customer_default_address_id' => 7];
+if ($observer->destination('PRODUCTS_RESTRICTED_ZONES_CHECKOUT_GUARD', null) !== [44, 223]) {
+    throw new RuntimeException('The default checkout shipping address was not detected before Zen Cart sets sendto.');
+}
+
+$autoLoaderSource = file_get_contents(dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.6/catalog/includes/auto_loaders/config.products_restricted_zones.php');
+if (!str_contains($autoLoaderSource, 'init_products_restricted_zones_checkout.php')) {
+    throw new RuntimeException('The direct checkout request guard is not registered.');
 }
 
 echo "Runtime checks passed.\n";

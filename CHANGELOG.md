@@ -1,5 +1,11 @@
 # Change history
 
+## v2.0.5 - 2026-09-03
+
+- Enforces product restrictions at shipping, payment, confirmation, and final order processing.
+- Prevents a shopper from bypassing a shopping-cart warning and completing a restricted order.
+- Adds a runtime regression check for every required checkout enforcement notification.
+
 ## v2.0.4 - 2026-09-03
 
 - Resolved the selected checkout shipping address from the customer-owned `sendto` address-book entry when Zen Cart fires its checkout notifier before creating the order object.

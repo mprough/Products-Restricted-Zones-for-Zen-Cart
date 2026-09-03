@@ -6,6 +6,16 @@ class base
 {
 }
 
+class TestNotifier
+{
+    public array $events = [];
+
+    public function attach(object $observer, array $events): void
+    {
+        $this->events = $events;
+    }
+}
+
 class TestRecordset
 {
     public bool $EOF;
@@ -50,8 +60,8 @@ function zen_get_categories_products_list(int $categoryId): array
 }
 
 $db = new TestDatabase();
-require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.4/catalog/includes/functions/extra_functions/products_restricted_zones.php';
-require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.4/catalog/includes/classes/observers/class.products_restricted_zones.php';
+require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.5/catalog/includes/functions/extra_functions/products_restricted_zones.php';
+require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.5/catalog/includes/classes/observers/class.products_restricted_zones.php';
 
 if (!defined('TEXT_PRODUCTS_RESTRICTED_ZONE') || !defined('TEXT_PRODUCTS_RESTRICTED_REPLACEMENT')) {
     throw new RuntimeException('The storefront restriction messages must always be defined.');
@@ -65,6 +75,19 @@ if (!product_restricted_zone_only(999, 10, 223)) {
 }
 if (!product_restricted_zone_cant(145, 10, 223)) {
     throw new RuntimeException('An empty prohibited-zone setting must not restrict products.');
+}
+
+$zco_notifier = new TestNotifier();
+new productsRestrictedZones();
+foreach ([
+    'NOTIFY_HEADER_START_CHECKOUT_SHIPPING',
+    'NOTIFY_HEADER_START_CHECKOUT_PAYMENT',
+    'NOTIFY_HEADER_START_CHECKOUT_CONFIRMATION',
+    'NOTIFY_HEADER_START_CHECKOUT_PROCESS',
+] as $requiredCheckoutNotifier) {
+    if (!in_array($requiredCheckoutNotifier, $zco_notifier->events, true)) {
+        throw new RuntimeException("Checkout enforcement is missing $requiredCheckoutNotifier.");
+    }
 }
 
 class TestProductsRestrictedZones extends productsRestrictedZones
@@ -93,7 +116,7 @@ if ($observer->destination('NOTIFY_HEADER_START_SHOPPING_CART', null) !== [39, 2
 }
 
 $order = (object)['delivery' => ['country' => ['id' => 38], 'zone_id' => 9]];
-if ($observer->destination('NOTIFY_HEADER_START_CHECKOUT', $order) !== [9, 38]) {
+if ($observer->destination('NOTIFY_HEADER_START_CHECKOUT_PAYMENT', $order) !== [9, 38]) {
     throw new RuntimeException('The checkout delivery destination was not detected.');
 }
 

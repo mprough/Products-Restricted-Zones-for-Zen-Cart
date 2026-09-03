@@ -8,8 +8,14 @@ class base
 
 class TestRecordset
 {
-    public bool $EOF = false;
-    public array $fields = ['geo_zone_id' => 2];
+    public bool $EOF;
+    public array $fields;
+
+    public function __construct(array $fields)
+    {
+        $this->fields = $fields;
+        $this->EOF = $fields === [];
+    }
 
     public function MoveNext(): void
     {
@@ -19,13 +25,22 @@ class TestRecordset
 
 class TestDatabase
 {
+    public function bindVars(string $sql, string $placeholder, mixed $value, string $type): string
+    {
+        return str_replace($placeholder, (string)(int)$value, $sql);
+    }
+
     public function Execute(string $sql): TestRecordset
     {
-        return new TestRecordset();
+        if (str_contains($sql, 'address_book')) {
+            return new TestRecordset(['entry_zone_id' => 44, 'entry_country_id' => 223]);
+        }
+        return new TestRecordset(['geo_zone_id' => 2]);
     }
 }
 
 define('TABLE_ZONES_TO_GEO_ZONES', 'zones_to_geo_zones');
+define('TABLE_ADDRESS_BOOK', 'address_book');
 define('PRODUCTS_RESTRICTED_ZONE_ONLY_VALUES', '145:1,145:2');
 define('PRODUCTS_RESTRICTED_ZONE_CANT_VALUES', '');
 
@@ -35,8 +50,8 @@ function zen_get_categories_products_list(int $categoryId): array
 }
 
 $db = new TestDatabase();
-require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.3/catalog/includes/functions/extra_functions/products_restricted_zones.php';
-require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.3/catalog/includes/classes/observers/class.products_restricted_zones.php';
+require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.4/catalog/includes/functions/extra_functions/products_restricted_zones.php';
+require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.4/catalog/includes/classes/observers/class.products_restricted_zones.php';
 
 if (!defined('TEXT_PRODUCTS_RESTRICTED_ZONE') || !defined('TEXT_PRODUCTS_RESTRICTED_REPLACEMENT')) {
     throw new RuntimeException('The storefront restriction messages must always be defined.');
@@ -80,6 +95,11 @@ if ($observer->destination('NOTIFY_HEADER_START_SHOPPING_CART', null) !== [39, 2
 $order = (object)['delivery' => ['country' => ['id' => 38], 'zone_id' => 9]];
 if ($observer->destination('NOTIFY_HEADER_START_CHECKOUT', $order) !== [9, 38]) {
     throw new RuntimeException('The checkout delivery destination was not detected.');
+}
+
+$_SESSION = ['customer_id' => 12, 'sendto' => 7, 'customer_country_id' => 38, 'customer_zone_id' => 9];
+if ($observer->destination('NOTIFY_HEADER_START_CHECKOUT_SHIPPING', null) !== [44, 223]) {
+    throw new RuntimeException('The selected checkout shipping address was not detected.');
 }
 
 echo "Runtime checks passed.\n";

@@ -1,5 +1,11 @@
 # Change history
 
+## v2.0.4 - 2026-09-03
+
+- Resolved the selected checkout shipping address from the customer-owned `sendto` address-book entry when Zen Cart fires its checkout notifier before creating the order object.
+- Prevented checkout restrictions from incorrectly falling back to the customer's default address when another shipping address is selected.
+- Added a runtime test proving that the selected shipping address takes priority over the default customer address.
+
 ## v2.0.3 - 2026-09-03
 
 - Corrected the storefront extra-definition filename to the Zen Cart 2.x `lang.*.php` format so restriction and replacement messages load.

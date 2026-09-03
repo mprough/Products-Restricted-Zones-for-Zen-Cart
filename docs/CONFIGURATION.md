@@ -24,6 +24,7 @@ Use an uppercase or lowercase `C` immediately before a numeric category ID. Zen 
 
 ## Testing checklist
 
+- When using One Page Checkout, use OPC 2.6.3 for the tested compatible configuration. Future OPC versions have not been verified and should be tested at your own risk.
 - Test an address in every allowed zone.
 - Test an address in every prohibited zone.
 - Test an address outside all named zones.

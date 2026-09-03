@@ -10,6 +10,9 @@ Version 2.0.8 is a complete modernization of the legacy v1.1.1 release. It is en
 - Zen Cart 2.1.x.
 - Zen Cart 2.2.x.
 - PHP 8.0 through 8.5, within the limits supported by the installed Zen Cart version.
+- One Page Checkout 2.6.3.
+
+One Page Checkout 2.6.3 is the tested compatible OPC release. Future OPC versions have not been verified. Test future versions at your own risk.
 
 ## Features
 

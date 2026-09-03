@@ -4,6 +4,10 @@
 
 Upload `files/zc_plugins/ProductsRestrictedZones` to the store's `zc_plugins` directory, then install **Products Restricted Zones v2.0.8** under **Modules > Plugin Manager**. Configure the rules under **Configuration > Products Restricted Zones** and test them before enabling the plugin.
 
+## One Page Checkout compatibility
+
+One Page Checkout 2.6.3 is tested and compatible. Future OPC versions have not been verified. Test future versions at your own risk.
+
 ## Migrating from v1.1.1
 
 Install v2.0.8 before removing the legacy files. The new installer reuses the configuration group containing `PRODUCTS_RESTRICTED_ZONE_VERSION`, updates its version, retains the other five configuration values, and refreshes the Configuration menu registration.

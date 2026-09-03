@@ -6,6 +6,7 @@
 - Blocks restricted orders at OPC's pre-order validation notification after the actual guest delivery address is available.
 - Adds `checkout_one` and `checkout_one_confirmation` to the direct request guard.
 - Adds a regression test proving an OPC guest order for OH cannot be created when `C15:1` permits only GA.
+- Documents One Page Checkout 2.6.3 as the tested compatible release and identifies future OPC versions as unverified.
 
 ## v2.0.7 - 2026-09-03
 

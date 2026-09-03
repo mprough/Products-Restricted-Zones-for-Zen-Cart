@@ -86,8 +86,8 @@ function zen_redirect(string $url): never
 }
 
 $db = new TestDatabase();
-require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.7/catalog/includes/functions/extra_functions/products_restricted_zones.php';
-require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.7/catalog/includes/classes/observers/class.products_restricted_zones.php';
+require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.8/catalog/includes/functions/extra_functions/products_restricted_zones.php';
+require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.8/catalog/includes/classes/observers/class.products_restricted_zones.php';
 
 if (!defined('TEXT_PRODUCTS_RESTRICTED_ZONE') || !defined('TEXT_PRODUCTS_RESTRICTED_REPLACEMENT')) {
     throw new RuntimeException('The storefront restriction messages must always be defined.');
@@ -116,6 +116,7 @@ foreach ([
     'NOTIFY_HEADER_START_CHECKOUT_CONFIRMATION',
     'NOTIFY_HEADER_END_CHECKOUT_CONFIRMATION',
     'NOTIFY_HEADER_START_CHECKOUT_PROCESS',
+    'NOTIFY_CHECKOUT_ONE_CONFIRMATION_PRE_ORDER_CHECK',
 ] as $requiredCheckoutNotifier) {
     if (!in_array($requiredCheckoutNotifier, $zco_notifier->events, true)) {
         throw new RuntimeException("Checkout enforcement is missing $requiredCheckoutNotifier.");
@@ -162,9 +163,16 @@ if ($observer->destination('PRODUCTS_RESTRICTED_ZONES_CHECKOUT_GUARD', null) !==
     throw new RuntimeException('The default checkout shipping address was not detected before Zen Cart sets sendto.');
 }
 
-$autoLoaderSource = file_get_contents(dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.7/catalog/includes/auto_loaders/config.products_restricted_zones.php');
+$autoLoaderSource = file_get_contents(dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.8/catalog/includes/auto_loaders/config.products_restricted_zones.php');
 if (!str_contains($autoLoaderSource, 'init_products_restricted_zones_checkout.php')) {
     throw new RuntimeException('The direct checkout request guard is not registered.');
+}
+
+$checkoutGuardSource = file_get_contents(dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.8/catalog/includes/init_includes/init_products_restricted_zones_checkout.php');
+foreach (['checkout_one', 'checkout_one_confirmation'] as $opcPage) {
+    if (!str_contains($checkoutGuardSource, "'$opcPage'")) {
+        throw new RuntimeException("The direct checkout request guard is missing OPC page $opcPage.");
+    }
 }
 
 class TestCart
@@ -205,6 +213,25 @@ try {
 }
 if ($messageStack->messages === []) {
     throw new RuntimeException('The blocked OH checkout did not retain its warning.');
+}
+
+$messageStack = new TestMessageStack();
+$error = false;
+try {
+    $observer->updateNotifyCheckoutOneConfirmationPreOrderCheck(
+        $notifier,
+        'NOTIFY_CHECKOUT_ONE_CONFIRMATION_PRE_ORDER_CHECK',
+        '',
+        $error
+    );
+    throw new RuntimeException('The OPC OH checkout was not redirected before order creation.');
+} catch (RedirectException $redirect) {
+    if ($redirect->getMessage() !== '/index.php?main_page=shopping_cart') {
+        throw new RuntimeException('The OPC OH checkout redirected to the wrong page.');
+    }
+}
+if ($messageStack->messages === []) {
+    throw new RuntimeException('The blocked OPC OH checkout did not retain its warning.');
 }
 
 echo "Runtime checks passed.\n";

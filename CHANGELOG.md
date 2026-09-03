@@ -1,5 +1,12 @@
 # Change history
 
+## v2.0.8 - 2026-09-03
+
+- Adds native One Page Checkout enforcement with no OPC file changes or extra configuration.
+- Blocks restricted orders at OPC's pre-order validation notification after the actual guest delivery address is available.
+- Adds `checkout_one` and `checkout_one_confirmation` to the direct request guard.
+- Adds a regression test proving an OPC guest order for OH cannot be created when `C15:1` permits only GA.
+
 ## v2.0.7 - 2026-09-03
 
 - Enforces restrictions after Zen Cart constructs the actual delivery address on shipping, payment, and confirmation pages.

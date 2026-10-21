@@ -1,5 +1,12 @@
 # Change history
 
+## 2.0.10, 2026-10-21
+
+- Advance the patch version for resubmission to the migrated Zen Cart plugin repository.
+- Retain official plugin ID 1981; the forum release number is not the plugin ID.
+- Prepare the distribution ZIP with one current version directory and one readable manifest.
+- Check manifest ID and version consistency during release validation.
+
 ## v2.0.9 - 2026-09-03
 
 - Rechecks submitted shopping-cart shipping estimates after Zen Cart has built the estimator delivery address.

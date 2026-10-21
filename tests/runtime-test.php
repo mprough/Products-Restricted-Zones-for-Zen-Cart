@@ -96,8 +96,8 @@ function zen_redirect(string $url): never
 }
 
 $db = new TestDatabase();
-require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.9/catalog/includes/functions/extra_functions/products_restricted_zones.php';
-require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.9/catalog/includes/classes/observers/class.products_restricted_zones.php';
+require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.10/catalog/includes/functions/extra_functions/products_restricted_zones.php';
+require dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.10/catalog/includes/classes/observers/class.products_restricted_zones.php';
 
 if (!defined('TEXT_PRODUCTS_RESTRICTED_ZONE') || !defined('TEXT_PRODUCTS_RESTRICTED_REPLACEMENT')) {
     throw new RuntimeException('The storefront restriction messages must always be defined.');
@@ -175,12 +175,12 @@ if ($observer->destination('PRODUCTS_RESTRICTED_ZONES_CHECKOUT_GUARD', null) !==
     throw new RuntimeException('The default checkout shipping address was not detected before Zen Cart sets sendto.');
 }
 
-$autoLoaderSource = file_get_contents(dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.9/catalog/includes/auto_loaders/config.products_restricted_zones.php');
+$autoLoaderSource = file_get_contents(dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.10/catalog/includes/auto_loaders/config.products_restricted_zones.php');
 if (!str_contains($autoLoaderSource, 'init_products_restricted_zones_checkout.php')) {
     throw new RuntimeException('The direct checkout request guard is not registered.');
 }
 
-$checkoutGuardSource = file_get_contents(dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.9/catalog/includes/init_includes/init_products_restricted_zones_checkout.php');
+$checkoutGuardSource = file_get_contents(dirname(__DIR__) . '/files/zc_plugins/ProductsRestrictedZones/v2.0.10/catalog/includes/init_includes/init_products_restricted_zones_checkout.php');
 foreach (['checkout_one', 'checkout_one_confirmation'] as $opcPage) {
     if (!str_contains($checkoutGuardSource, "'$opcPage'")) {
         throw new RuntimeException("The direct checkout request guard is missing OPC page $opcPage.");

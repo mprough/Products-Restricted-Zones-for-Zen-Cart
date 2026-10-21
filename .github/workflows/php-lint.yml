@@ -23,3 +23,9 @@ jobs:
         run: find files -type f -name '*.php' -print0 | xargs -0 -n1 php -l
       - name: Runtime checks
         run: php tests/runtime-test.php
+
+      - name: Check package metadata
+        run: bash tests/check-package.sh
+
+      - name: Build single-version release archive
+        run: python3 tests/build-release.py
